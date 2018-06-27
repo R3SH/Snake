@@ -4,6 +4,7 @@
 #include <time.h>
 #include <fstream>
 #include <chrono>
+#include <Windows.h>
 
 using namespace sf;
 
@@ -14,8 +15,10 @@ int h = size * M;	// height
 int a = 0;			//acces to f2
 int ms = 0;			//music selecting
 int score = 0;
+int nScreenWidth = 40;
+int nScreenHeight = 40;
 
-int dir, num = 4;
+int dir, num = 4;	//dir -- direction, num -- length of snake;
 
 void menu(RenderWindow & window)
 {
@@ -261,6 +264,12 @@ int main()
 	RenderWindow window(VideoMode(w + size, h + size), "Snake Game!");
 	menu(window);
 
+	wchar_t *screen = new wchar_t[nScreenWidth * nScreenHeight];
+	HANDLE hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+	SetConsoleActiveScreenBuffer(hConsole);
+
+	DWORD dwBytesWritten = 0;
+
 	Music m1, m2, m3;
 	m1.openFromFile("Sounds/ADG.ogg");
 	m2.openFromFile("Sounds/ttcd.ogg");
@@ -295,7 +304,6 @@ int main()
 	s4.setTexture(t4);
 
 	Clock clock;
-	float timer = 0, delay = 8;
 
 	f1.x = f1.y = 10;
 	f2.x = f2.y = 8;
@@ -310,7 +318,7 @@ int main()
 		tp1 = tp2;
 		float fElapsedTime = elapsedTime.count();
 
-		printf("FPS:%3.2f\n", 1.0f / fElapsedTime);
+		//printf("FPS:%3.2f\n", 1.0f / fElapsedTime);
 
 		Tick();
 
@@ -354,6 +362,10 @@ int main()
 			window.draw(s4);
 		}
 		window.display();
+
+		swprintf_s(screen, 40, L"FPS:%3.2f", 1.0f / fElapsedTime);
+		WriteConsoleOutputCharacter(hConsole, screen, 9, { 0, 0 }, &dwBytesWritten);
+
 	}
 
 	return 0;
