@@ -1,0 +1,19 @@
+﻿Сборка начата 20.06.2018 21:58:37.
+     1>Проект "H:\C++\Snake\Snake.vcxproj" в узле 2 (целевые объекты Build).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"H:\Programming\SFML(Libs for C++)\SFML-2.2-windows-vc12-32-bit\SFML-2.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_DYNAMIC /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>h:\c++\snake\main.cpp(256): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+     1>h:\c++\snake\main.cpp(304): warning C4244: инициализация: преобразование "sf::Int32" в "float", возможна потеря данных
+     1>h:\c++\snake\main.cpp(335): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+     1>h:\c++\snake\main.cpp(341): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+     1>h:\c++\snake\main.cpp(345): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+     1>h:\c++\snake\main.cpp(350): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\C++\Snake\Debug\Snake.exe" /INCREMENTAL /NOLOGO /LIBPATH:"H:\Programming\SFML(Libs for C++)\SFML-2.2-windows-vc12-32-bit\SFML-2.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"H:\C++\Snake\Debug\Snake.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\C++\Snake\Debug\Snake.lib" /MACHINE:X86 Debug\main.obj
+         Snake.vcxproj -> H:\C++\Snake\Debug\Snake.exe
+     1>Сборка проекта "H:\C++\Snake\Snake.vcxproj" завершена (целевые объекты Build).
+
+Сборка успешно завершена.
+
+Затраченное время: 00:00:12.76
