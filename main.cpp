@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <time.h>
 #include <fstream>
+#include <chrono>
 
 using namespace sf;
 
@@ -299,17 +300,19 @@ int main()
 	f1.x = f1.y = 10;
 	f2.x = f2.y = 8;
 
+	auto tp1 = std::chrono::system_clock::now();	//time point 1
+	auto tp2 = std::chrono::system_clock::now();	//time point 2
+
 	while (window.isOpen())
 	{
-		float time = clock.getElapsedTime().asMilliseconds();
-		//("FPS: %f\n", timer);
-		timer += time;
+		tp2 = std::chrono::system_clock::now();
+		std::chrono::duration<float> elapsedTime = tp2 - tp1;
+		tp1 = tp2;
+		float fElapsedTime = elapsedTime.count();
 
-		if (timer > delay)
-		{
-			timer = 0;
-			Tick();
-		}
+		printf("FPS:%3.2f\n", 1.0f / fElapsedTime);
+
+		Tick();
 
 		clock.restart();
 
