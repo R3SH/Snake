@@ -9,7 +9,7 @@
 using namespace sf;
 
 int N = 30, M = 20;
-int size = 16;
+float size = 16.0;
 int w = size * N;	// weight
 int h = size * M;	// height
 int a = 0;			//acces to f2
@@ -41,6 +41,7 @@ void menu(RenderWindow & window)
 	int isMenu = 1;
 	int menuNum = 0;
 	int imp = 0;
+	bool bKeyPressed;
 
 	ms1.setPosition(20, 30);
 	ms2.setPosition(20, 120);
@@ -101,6 +102,8 @@ void menu(RenderWindow & window)
 
 		if (isMenu == 2)
 		{
+			bKeyPressed = false;
+
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				isMenu = 1;
@@ -135,35 +138,51 @@ void menu(RenderWindow & window)
 				musS3.setColor(Color::Red);
 			};
 
+			if (Keyboard::isKeyPressed(Keyboard::Num1))
+			{
+				imp = 0;
+			}
+			
+			if (Keyboard::isKeyPressed(Keyboard::Num2))
+			{
+				imp = 1;
+			}
+			
+			if (Keyboard::isKeyPressed(Keyboard::Num3))
+			{
+				imp = 2;
+			}
+
+			if (Keyboard::isKeyPressed(Keyboard::Num0))
+			{
+				imp = -1;
+			}
+
 			if (Keyboard::isKeyPressed(Keyboard::Right))
 			{
 				if (imp != 3) { ++imp; }
 				printf("%i\n", imp);
 			}
 
-			if (IntRect(20, 30, 250, 70).contains(Mouse::getPosition(window))) 
+			if (IntRect(20, 30, 250, 70).contains(Mouse::getPosition(window)))
 			{
 				musOpS.setColor(Color::Red);
 
 				if (Mouse::isButtonPressed(Mouse::Left))
-					{
-						if (imp != 3) { ++imp; }
-						else if (imp = 3) { imp = 0; }
-						printf("%i\n", imp);
-					}
-				else if (imp == 3)
 				{
-					imp = 0;
-					printf("!\n");
+					bKeyPressed = true;
+					if (imp != 3) { ++imp; }
+					else if (imp = 3) { imp = 0; }
+					printf("%i\n", imp);
 				}
 			}
-			
-			else if (imp == 3) 
+
+			if (imp == 3)
 			{
 				imp = 0;
 				printf("!\n");
 			}
-			
+
 			ms = imp;
 			window.draw(musOpS);
 			window.display();
@@ -259,7 +278,7 @@ int main()
 {
 	srand(time(0));
 
-	printf("Red = 1, white = 5;\n");
+	printf("Red = 1, white = 5;\nTo choose music in options use '1'/'2'/'3' or '0' to turn it off\nUse 'Esc' to exit meanwhile game process\n");
 
 	RenderWindow window(VideoMode(w + size, h + size), "Snake Game!");
 	menu(window);
@@ -269,6 +288,7 @@ int main()
 	SetConsoleActiveScreenBuffer(hConsole);
 
 	DWORD dwBytesWritten = 0;
+	DWORD dwBytesWritten2 = 0;
 
 	Music m1, m2, m3;
 	m1.openFromFile("Sounds/ADG.ogg");
@@ -285,7 +305,7 @@ int main()
 		m2.play();
 		m2.setLoop(true);
 	}
-	else
+	else if (ms == 2)
 	{
 		m3.play();
 		m3.setLoop(true);
@@ -318,8 +338,6 @@ int main()
 		tp1 = tp2;
 		float fElapsedTime = elapsedTime.count();
 
-		//printf("FPS:%3.2f\n", 1.0f / fElapsedTime);
-
 		Tick();
 
 		clock.restart();
@@ -340,8 +358,8 @@ int main()
 		////// Draw  ///////
 		window.clear();
 
-		for (int i = 0; i < N; i++)
-			for (int j = 0; j < M; j++)
+		for (float i = 0; i < N; i++)
+			for (float j = 0; j < M; j++)
 			{
 				s1.setPosition(i * size, j * size);
 				window.draw(s1);
@@ -363,9 +381,10 @@ int main()
 		}
 		window.display();
 
-		swprintf_s(screen, 40, L"FPS:%3.2f", 1.0f / fElapsedTime);
+		swprintf_s(screen, 20, L"FPS:%3.2f", 1.0f / fElapsedTime);
 		WriteConsoleOutputCharacter(hConsole, screen, 9, { 0, 0 }, &dwBytesWritten);
-
+		/*swprintf_s(screen, 20, L"SCORE:%5", score);
+		WriteConsoleOutputCharacter(hConsole, screen, 9, { 0, 1 }, &dwBytesWritten2);*/
 	}
 
 	return 0;
